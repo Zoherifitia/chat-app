@@ -33,7 +33,8 @@ const Profile = ({ token, userLoged }: { token: string, userLoged:any }) => {
     const user = userLoged.user;
     return (
         <>
-            <p>{user.name}</p>
+            <p>{JSON.stringify(user)}</p>
+            <p>{user.token}</p>
         </>
     )
 }

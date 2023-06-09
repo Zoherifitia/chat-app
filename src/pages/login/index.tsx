@@ -5,6 +5,7 @@ import axios from "axios";
 import BASE_URL from "@/api/BASE_URL";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
+import { login } from "@/api/auth";
 
 const loginSchema = yup.object({
     email:yup
@@ -19,13 +20,11 @@ export default function Login(){
         resolver: yupResolver(loginSchema)
     })
 
-    const handleLoginSubmit = async (e: any) => {
-        await axios.post(`${BASE_URL}/users/login`, e).then(async (res) => {
-            const token= res.data.user.token;
-            Cookies.set("token",token)
-            await route.push("/profile")
-        }).catch((res) => {
-            console.log(res);
+    const handleLoginSubmit = async (loginObject: any) => {
+        await login(loginObject).then((res) => {
+            route.push("/profile");
+        }).catch((err) => {
+            console.log(err);
         })
     }
 
