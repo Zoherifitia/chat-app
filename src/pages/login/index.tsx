@@ -21,9 +21,9 @@ export default function Login(){
 
     const handleLoginSubmit = async (e: any) => {
         await axios.post(`${BASE_URL}/users/login`, e).then(async (res) => {
-            // await route.push("/profile")
-            const token=res.data.user.token;
-            Cookies.set("jwt",token);
+            const token= res.data.user.token;
+            Cookies.set("token",token)
+            await route.push("/profile")
         }).catch((res) => {
             console.log(res);
         })
